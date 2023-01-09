@@ -219,8 +219,8 @@ const Overview = () => {
     };
 
     if (isLoading === false) {
-        let overviewData = data.filter(overviewData => overviewData.groupID == sessionStorage.getItem('myGroupID'))
-
+        let overviewData = data.filter(overviewData => (overviewData.debtorPersonID == sessionStorage.getItem('myPersonID') || (overviewData.creditorPersonID == sessionStorage.getItem('myPersonID'))))
+        console.log(overviewData)
         return (
             <div className="App col">
 
@@ -238,8 +238,8 @@ const Overview = () => {
                     <tbody>
                         {overviewData.map(item => (
                             <tr>
-                                <td>{item.contributorFirstname + " " + item.contributorLastname}</td>
-                                <td>{item.sharedWith}</td>
+                                <td>{item.creditorFirstname + " " + item.creditorLastname}</td>
+                                <td>{item.debtorFullName}</td>
                                 <td>{item.comment}</td>
                                 <td>{item.date}</td>
                                 <td>{item.amount}</td>
@@ -287,27 +287,27 @@ const Splitter = () => {
     let loginData = data;
 
     // filter loginData to specific groupID from user
-    loginData = loginData.filter(loginData => loginData.groupID == sessionStorage.getItem('myGroupID'))
+    let loginDataGrouped = loginData.filter(loginData => loginData.groupID == sessionStorage.getItem('myGroupID'))
 
     //filter out yourself with your personID
-    loginData = loginData.filter(loginData => loginData.personID != sessionStorage.getItem('myPersonID'))
-    console.log(loginData.personID, sessionStorage.getItem('myPersonID'))
+    loginDataGrouped = loginDataGrouped.filter(loginDataGrouped => loginDataGrouped.personID != sessionStorage.getItem('myPersonID'))
+
     const onSubmit = splitterData => {
         let date = new Date();
         date = date.toISOString()
         date = date.substring(0, 10)
 
 
-        let datasharedWith = splitterData.sharedWith
+        let debtorFullName = splitterData.debtorFullName
 
-        if (!Array.isArray(datasharedWith)) {
-            datasharedWith = [datasharedWith]
+        if (!Array.isArray(debtorFullName)) {
+            debtorFullName = [debtorFullName]
         }
-        let amountPeople = datasharedWith.length + 1
-        datasharedWith.forEach(element => {
+        let amountPeople = debtorFullName.length + 1
+        debtorFullName.forEach(element => {
+            let debtorPersonID = loginData.find(x => (x.firstname + " " + x.lastname) === element).personID
 
-
-            fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/bills?contributorFirstname=" + sessionStorage.getItem('myFirstname') + "&contributorLastname=" + sessionStorage.getItem('myLastname') + "&amount=" + (splitterData.amount / amountPeople) + "&sharedWith=" + element + "&comment=" + splitterData.comment + "&billID=" + uuid() + "&date=" + date + "&groupID=" + sessionStorage.getItem('myGroupID'), {
+            fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/bills?creditorFirstname=" + sessionStorage.getItem('myFirstname') + "&creditorLastname=" + sessionStorage.getItem('myLastname') + "&creditorPersonID=" + sessionStorage.getItem('myPersonID') + "&amount=" + (splitterData.amount / amountPeople) + "&debtorFullName=" + element + "&debtorPersonID=" + debtorPersonID + "&comment=" + splitterData.comment + "&billID=" + uuid() + "&date=" + date + "&groupID=" + sessionStorage.getItem('myGroupID'), {
 
                 headers: {
                     'Accept': 'application/json',
@@ -337,9 +337,9 @@ const Splitter = () => {
 
                 <div class="row">
                     <div class="col checkbox mb-3">
-                        {loginData.map(item => (
+                        {loginDataGrouped.map(item => (
                             <div>
-                                <input {...register("sharedWith", { required: true })} type="checkbox" value={item.firstname + " " + item.lastname} />
+                                <input {...register("debtorFullName", { required: true })} type="checkbox" value={item.firstname + " " + item.lastname} />
                                 <label for={item.firstname + " " + item.lastname}>{item.firstname + " " + item.lastname}</label>
                             </div>
                         ))}
