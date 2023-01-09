@@ -418,6 +418,7 @@ const Login = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
+            <h1>Login</h1>
             <div className="form-group">
                 <label htmlFor="email">Email address</label>
                 <input
