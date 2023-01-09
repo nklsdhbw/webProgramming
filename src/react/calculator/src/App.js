@@ -469,6 +469,7 @@ const Register = () => {
         let groupIDs = data.map(loginData => loginData.groupID);
         let eMails = data.map(loginData => loginData.eMail)
         groupIDs = [...new Set(groupIDs)];
+        console.log(groupIDs)
         eMails = [...new Set(eMails)];
         const onSubmit = registerData => {
 
@@ -477,6 +478,9 @@ const Register = () => {
             }
             else {
 
+                if (registerData.groupID === "create own group") {
+                    registerData.groupID = groupIDs.length + 1
+                }
 
                 console.log("registerData:", registerData)
 
@@ -532,11 +536,9 @@ const Register = () => {
                     <label >Suche dir deine Gruppe aus</label>
                     <Form.Select {...register("groupID", { required: true })} aria-label="Default select example">
                         {groupIDs.map(groupID => (
-
-
                             <option value={groupID}>{groupID}</option>
-
                         ))}
+                        <option value="create own group">create own group</option>
                     </Form.Select>
                 </div>
 
