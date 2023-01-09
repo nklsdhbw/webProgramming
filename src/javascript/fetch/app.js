@@ -70,7 +70,7 @@ app.delete("/api/bills/:billID", (req, res) => {
 
 // login api
 
-let login = [{ "eMail": "luca@gmx.de", "password": "luca", "firstname": "Luca", "lastname": "Mohr", "groupID": 1, "personID": uuid4() }, { "eMail": "niklas@gmx.de", "password": "niklas", "firstname": "Niklas", "lastname": "Scholz", "groupID": 1, "personID": uuid4() }, { "eMail": "simon@gmx.de", "password": "simon", "firstname": "Simon", "lastname": "Ludwig", "groupID": 2, "personID": uuid4() }, { "eMail": "tobias@gmx.de", "password": "tobias", "firstname": "Tobias", "lastname": "Ludwig", "groupID": 2, "personID": uuid4() }]
+let login = [{ "eMail": "luca@gmx.de", "password": "luca", "firstname": "Luca", "lastname": "Mohr", "groupID": "1", "personID": uuid4() }, { "eMail": "niklas@gmx.de", "password": "niklas", "firstname": "Niklas", "lastname": "Scholz", "groupID": "1", "personID": uuid4() }, { "eMail": "simon@gmx.de", "password": "simon", "firstname": "Simon", "lastname": "Ludwig", "groupID": "2", "personID": uuid4() }, { "eMail": "tobias@gmx.de", "password": "tobias", "firstname": "Tobias", "lastname": "Ludwig", "groupID": "2", "personID": uuid4() }]
 app.post('/api/login', (req, res) => {
     res.json(login)
 });
@@ -82,7 +82,7 @@ app.put('/api/login', (req, res) => {
     res.send(200)
 });
 // shooping list api
-let shoppingList = [{ "item": "Käse", "shoppingListID": uuid4(), "amount": "2", "groupID": 1 }, { "item": "Brot", "shoppingListID": uuid4(), "amount": "1", "groupID": 1 }]
+let shoppingList = [{ "item": "Käse", "shoppingListID": uuid4(), "amount": "2", "groupID": "1" }, { "item": "Brot", "shoppingListID": uuid4(), "amount": "1", "groupID": "1" }]
 app.post('/api/shoppingList', (req, res) => {
     res.json(shoppingList)
 });

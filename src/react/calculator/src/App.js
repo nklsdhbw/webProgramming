@@ -285,12 +285,13 @@ const Splitter = () => {
     }
 
     let loginData = data;
+
     // filter loginData to specific groupID from user
     loginData = loginData.filter(loginData => loginData.groupID == sessionStorage.getItem('myGroupID'))
 
     //filter out yourself with your personID
     loginData = loginData.filter(loginData => loginData.personID != sessionStorage.getItem('myPersonID'))
-
+    console.log(loginData.personID, sessionStorage.getItem('myPersonID'))
     const onSubmit = splitterData => {
         let date = new Date();
         date = date.toISOString()
@@ -469,6 +470,7 @@ const Register = () => {
         let groupIDs = data.map(loginData => loginData.groupID);
         let eMails = data.map(loginData => loginData.eMail)
         groupIDs = [...new Set(groupIDs)];
+        console.log(groupIDs)
         eMails = [...new Set(eMails)];
         const onSubmit = registerData => {
 
@@ -477,10 +479,13 @@ const Register = () => {
             }
             else {
 
+                if (registerData.groupID === "create own group") {
+                    registerData.groupID = groupIDs.length + 1
+                }
 
                 console.log("registerData:", registerData)
-
-                fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/login?" + "eMail=" + registerData.eMail + "&password=" + registerData.password + "&firstname=" + registerData.firstname + "&lastname=" + registerData.lastname + "&personID=" + uuid() + "&groupID=" + registerData.groupID, {
+                let personID = uuid()
+                fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/login?" + "eMail=" + registerData.eMail + "&password=" + registerData.password + "&firstname=" + registerData.firstname + "&lastname=" + registerData.lastname + "&personID=" + personID + "&groupID=" + registerData.groupID, {
 
                     headers: {
                         'Accept': 'application/json',
@@ -494,7 +499,7 @@ const Register = () => {
                 sessionStorage.setItem("myFirstname", registerData.firstname);
                 sessionStorage.setItem("myLastname", registerData.lastname);
                 sessionStorage.setItem("myGroupID", registerData.groupID);
-                sessionStorage.setItem("myPersonID", registerData.personID);
+                sessionStorage.setItem("myPersonID", personID);
                 navigate("/overview")
             }
         }
@@ -532,11 +537,9 @@ const Register = () => {
                     <label >Suche dir deine Gruppe aus</label>
                     <Form.Select {...register("groupID", { required: true })} aria-label="Default select example">
                         {groupIDs.map(groupID => (
-
-
                             <option value={groupID}>{groupID}</option>
-
                         ))}
+                        <option value="create own group">create own group</option>
                     </Form.Select>
                 </div>
 
