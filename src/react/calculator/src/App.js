@@ -414,7 +414,7 @@ const Login = () => {
         //alert.error('This is an error message!')
         //alert.show("This is an alert message!", { offset: 0 });
     };
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState } = useForm();
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -422,7 +422,7 @@ const Login = () => {
             <div className="form-group">
                 <label htmlFor="email">Email address</label>
                 <input
-                    {...register("username")}
+                    {...register("username", { required: true })}
                     type="email"
                     className="form-control"
                     id="email"
@@ -436,7 +436,7 @@ const Login = () => {
             <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input
-                    {...register("password")}
+                    {...register("password", { required: true })}
                     type="password"
                     className="form-control"
                     id="password"
@@ -444,7 +444,7 @@ const Login = () => {
             </div>
 
             <div>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary" disabled={!formState.isValid}>
                     Submit
                 </button>
             </div>
