@@ -14,32 +14,38 @@ const Splitter = () => {
   const { isLoading, data } = useFetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/login");
   const { register, handleSubmit, formState } = useForm();
 
-
+  // display loading text when data is not fully loaded
   if (isLoading) {
     console.log("...loading")
     return <div>Is loading!</div>
   }
 
-  let loginData = data;
 
   // filter loginData to specific groupID from user
-  let loginDataGrouped = loginData.filter(loginData => loginData.groupID == sessionStorage.getItem('myGroupID'))
+  let loginDataGrouped = data.filter(loginData => loginData.groupID == sessionStorage.getItem('myGroupID'))
 
-  //filter out yourself with your personID
+  //filter out yourself with your personID. this array is then needed for the tickboxes where you decide with whom you split the bill
   loginDataGrouped = loginDataGrouped.filter(loginDataGrouped => loginDataGrouped.personID != sessionStorage.getItem('myPersonID'))
 
   const onSubmit = splitterData => {
+    // create date and extract date in format yyyy-mm-dd via substring. this date is later added when submitting the entry
     let date = new Date();
     date = date.toISOString()
     date = date.substring(0, 10)
 
-
+    // get debtorFullname from the input data
     let debtorFullName = splitterData.debtorFullName
 
+    // if the debtorFullName isn't an array, for example it's a string, convert it to an array
+    // because the len of the array is the amount of people that pay the bill
     if (!Array.isArray(debtorFullName)) {
       debtorFullName = [debtorFullName]
     }
+
+    // add 1 to the amount of people, because you also pay 
     let amountPeople = debtorFullName.length + 1
+
+    // create for each debtor an entry, so if you share the bill with Simon and Tobias, we create one entry with you as creditor and simon as debtor and another entry with you as creditor and tobias as debtor
     debtorFullName.forEach(element => {
       let debtorPersonID = loginData.find(x => (x.firstname + " " + x.lastname) === element).personID
 
@@ -56,6 +62,8 @@ const Splitter = () => {
     });
   }
 
+  // return form for splitting the data
+  // submit button is disabled until all fields EXCEPT comment is empty, so comment is optional
   return (
 
     <main class="form-signin w-100 m-auto">

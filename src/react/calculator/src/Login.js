@@ -10,18 +10,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
     const navigate = useNavigate();
+    const { register, handleSubmit, formState } = useForm();
     let { isLoading, data } = useFetch(
         "https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/login"
     );
-    //const alert = useAlert();
+
 
     const onSubmit = formData => {
-        if (!data) {
+
+        // dont do sth, until data isnt loaded
+        if (isLoading) {
             return;
         }
 
-        console.log(formData);
+        // declare login status
         let loginSuccess = false
+
+        // iterate over the data from /api/login and check if the inputs are in the array(=database)
         data.forEach(element => {
             if (
                 formData.username === element.eMail &&
@@ -39,15 +44,15 @@ const Login = () => {
             }
 
         });
+
+        // alert user if password or email is false
         if (!loginSuccess) {
             alert("invalid password or email!")
         }
-
-        //alert.error('This is an error message!')
-        //alert.show("This is an alert message!", { offset: 0 });
     };
-    const { register, handleSubmit, formState } = useForm();
 
+    // return form for submitting data
+    // set all input fields to required to prevent user to try login in without credentials
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <h1>Login</h1>

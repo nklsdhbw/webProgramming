@@ -11,24 +11,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
-
-
-
 const Overview = () => {
   const { isLoading, data } = useFetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/bills");
 
+  // define click handler for "Löschen" buton for deleting bills
   const handleClick = (billID) => {
     // only delete, if user confirms
     if (window.confirm('Are you sure you want to press this button?')) {
-
-
       deleteBill(billID)
     }
   };
 
   if (isLoading === false) {
+
+    // filter /api/bills data to all datasets, that the user is creditor or debtor of
     let overviewData = data.filter(overviewData => (overviewData.debtorPersonID == sessionStorage.getItem('myPersonID') || (overviewData.creditorPersonID == sessionStorage.getItem('myPersonID'))))
-    console.log(overviewData)
+
+    // return table of all entries that affect the logged in user -> user can't see entries of other users in the group that don't affect him
     return (
       <div className="App col">
 
@@ -44,6 +43,7 @@ const Overview = () => {
             </tr>
           </thead>
           <tbody>
+            {/*create dynamically table content*/}
             {overviewData.map(item => (
               <tr>
                 <td>{item.creditorFirstname + " " + item.creditorLastname}</td>
@@ -63,7 +63,7 @@ const Overview = () => {
 }
 
 
-
+// give useer the possibility to delete bills with delete rest call
 function deleteBill(billID) {
   fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/bills/" + billID, {
 

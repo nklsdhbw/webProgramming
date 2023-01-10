@@ -16,7 +16,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const ShoppingList = () => {
   const { isLoading, data } = useFetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/shoppingList");
   const { register, handleSubmit, formState } = useForm();
+
+  // click handler of delete button for deleting shopping list entries
   const handleClick = (shoppingListID) => {
+
     // only delete, if user confirms
     if (window.confirm('Are you sure you want to press this button?')) {
 
@@ -25,15 +28,20 @@ const ShoppingList = () => {
     }
   };
 
-  if (isLoading === false) {
-    let shoppingListData = data.filter(shoppingListData => shoppingListData.groupID == sessionStorage.getItem('myGroupID'))
-    console.log(Object.keys(data))
-    console.log("test")
 
+  // continue if data from api/shoppingList is completely loaded
+  if (isLoading === false) {
+    // filter the data from /api/shoppingList on groupID
+    let shoppingListData = data.filter(shoppingListData => shoppingListData.groupID == sessionStorage.getItem('myGroupID'))
+
+    // handles the submit of the "Eintrag hinzufügen" button, in this case it adds the new entry
     const onSubmit = addItemData => {
       addEntry(addItemData.shoppingListItem, addItemData.itemAmount)
-
     }
+
+    // return form for adding a new entry to the shopping list
+    // disable the "Eintrag hinzufügen" button when the input fields are empty
+    // return also a table that displays the shopping list of the group(=WG) and display buttons to delete entries
     return (
       <>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -83,7 +91,7 @@ const ShoppingList = () => {
 }
 
 
-
+// delete entry from shoppingListID
 function deleteEntry(shoppingListID) {
   fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/shoppingList/" + shoppingListID, {
 
@@ -96,6 +104,8 @@ function deleteEntry(shoppingListID) {
     .then(function (res) { window.location.reload() })
     .catch(function (res) { console.log(res) })
 }
+
+// add entry to the shoppinglist
 function addEntry(shoppingListItem, itemAmount) {
   fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/shoppingList?" + "item=" + shoppingListItem + "&amount=" + itemAmount + "&shoppingListID=" + uuid() + "&groupID=" + sessionStorage.getItem('myGroupID'), {
 
@@ -109,5 +119,4 @@ function addEntry(shoppingListItem, itemAmount) {
     .catch(function (res) { console.log(res) })
 }
 
-/// shopping list end ///
 export default ShoppingList;

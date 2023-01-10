@@ -18,26 +18,44 @@ const Register = () => {
     const { isLoading, data } = useFetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/login");
     const { register, handleSubmit, formState } = useForm();
     const navigate = useNavigate();
+
+    // continue when data is fully loaded
     if (isLoading === false) {
-        console.log(data)
+
+        // get groupIDs from the /api/login data and keep only distinct groupIDs
         let groupIDs = data.map(loginData => loginData.groupID);
-        let eMails = data.map(loginData => loginData.eMail)
         groupIDs = [...new Set(groupIDs)];
-        console.log(groupIDs)
+
+        // get eMails from the /api/login data and keep only distinct eMails
+        let eMails = data.map(loginData => loginData.eMail)
         eMails = [...new Set(eMails)];
+
+        // get personIDs from the /api/login data and keep only distinct personIDs
+        // needed to check if a new generated user id already exists 
+        let personIDs = data.map(loginData => loginData.personID)
+        personIDs = [...new Set(personIDs)];
+
+
         const onSubmit = registerData => {
 
+            // check if user already has an account with the email given in the input field
             if (eMails.includes(registerData.eMail)) {
                 alert("User already exists! Login or register with anoter eMail")
             }
             else {
 
+                // creat new group number if the user want's to create an own group instead of joining an existing
                 if (registerData.groupID === "create own group") {
                     registerData.groupID = groupIDs.length + 1
                 }
 
-                console.log("registerData:", registerData)
+                // create unique personID and check if it's already exists. If it exists already, generate a new unique id and check again
                 let personID = uuid()
+                while (personID in personIDs) {
+                    personID = uuid()
+                }
+
+                // add new user with eMail, password, firstname, lastname, personID and groupID to api/database
                 fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/login?" + "eMail=" + registerData.eMail + "&password=" + registerData.password + "&firstname=" + registerData.firstname + "&lastname=" + registerData.lastname + "&personID=" + personID + "&groupID=" + registerData.groupID, {
 
                     headers: {
@@ -49,6 +67,7 @@ const Register = () => {
                     .then(function (res) { window.location.reload() })
                     .catch(function (res) { console.log(res) })
 
+                // store the needed user data in sessionStorage
                 sessionStorage.setItem("myFirstname", registerData.firstname);
                 sessionStorage.setItem("myLastname", registerData.lastname);
                 sessionStorage.setItem("myGroupID", registerData.groupID);
@@ -57,6 +76,8 @@ const Register = () => {
             }
         }
 
+        // return form with input fields for registrating a new user
+        // disable the "register" button if inputValidation is false, for example empty input fields or not an input with eMail format in email input field
         return (
 
             <form novalidate onSubmit={handleSubmit(onSubmit)}>

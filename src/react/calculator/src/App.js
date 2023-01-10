@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route, Outlet, NavLink, useLocation } from 'reac
 
 // import components
 import Navbar from 'react-bootstrap/Navbar'
-import './App.css'
 import Overview from './Overview.js'
 import Splitter from './Splitter.js'
 import Login from './Login.js'
@@ -83,24 +82,6 @@ const Layout = () => {
 
 
 
-
-/// overview start ///
-
-
-/// overview end ///
-
-/// splitter start ///
-
-/// splitter end ///
-
-
-/// login start ///
-
-
-/// login end ///
-
-
-/// register start /// 
 
 
 export default App;
