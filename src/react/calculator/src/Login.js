@@ -55,9 +55,9 @@ const Login = () => {
     // set all input fields to required to prevent user to try login in without credentials
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Login</h1>
+            <h1>Anmelden</h1>
             <div className="form-group">
-                <label htmlFor="email">Email address</label>
+                <label htmlFor="email">E-Mail-Adresse</label>
                 <input
                     {...register("username", { required: true })}
                     type="email"
@@ -66,12 +66,12 @@ const Login = () => {
                     aria-describedby="emailHelp"
                 />
                 <small id="emailHelp" className="form-text text-muted">
-                    We'll never share your email with anyone else.
+                    Wir werden deine E-Mail-Adresse nicht weitergeben.
                 </small>
             </div>
 
             <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Passwort</label>
                 <input
                     {...register("password", { required: true })}
                     type="password"
@@ -82,12 +82,12 @@ const Login = () => {
 
             <div>
                 <button type="submit" className="btn btn-primary" disabled={!formState.isValid}>
-                    Submit
+                    Anmelden
                 </button>
             </div>
 
             <div>
-                <NavLink to="/register">or register here</NavLink>
+                <span>oder registriere dich <NavLink to="/register">hier</NavLink></span>
             </div>
         </form>
     );

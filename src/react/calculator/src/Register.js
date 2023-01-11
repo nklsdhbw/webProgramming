@@ -83,27 +83,27 @@ const Register = () => {
             <form novalidate onSubmit={handleSubmit(onSubmit)}>
 
                 <div>
-                    <h1>Register</h1>
+                    <h1>Registrieren</h1>
                 </div>
 
                 <div className="form-group">
-                    <label>Firstname</label>
+                    <label>Vorname</label>
                     <input {...register("firstname", { required: true })} className="form-control" id="firstname" />
                 </div>
 
                 <div className="form-group">
-                    <label >Lastname</label>
+                    <label >Nachname</label>
                     <input {...register("lastname", { required: true })} className="form-control" id="lastname" />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="email">Email address</label>
+                    <label htmlFor="email">E-Mail-Adresse</label>
                     <input {...register("eMail", { required: true })} type="email" className="form-control" id="email" aria-describedby="emailHelp" />
                     <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password">Passwort</label>
                     <input {...register("password", { required: true })} type="password" className="form-control" id="password" />
                 </div>
 
@@ -113,12 +113,12 @@ const Register = () => {
                         {groupIDs.map(groupID => (
                             <option value={groupID}>{groupID}</option>
                         ))}
-                        <option value="create own group">create own group</option>
+                        <option value="create own group">erstelle deine eigene Gruppe</option>
                     </Form.Select>
                 </div>
 
                 <div id="register">
-                    <button type="submit" className="btn btn-primary" disabled={!formState.isValid}>Register</button>
+                    <button type="submit" className="btn btn-primary" disabled={!formState.isValid}>Registrieren</button>
                 </div>
 
             </form >

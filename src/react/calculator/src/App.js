@@ -60,10 +60,10 @@ const Layout = () => {
                 {(currentRoute !== '/' && currentRoute !== "/register") && (
                     <Navbar bg="white" variant="light" className="justify-content-center" hidden={false}>
                         <NavLink to="/shoppinglist" style={style} textDecoration="none">
-                            ShoppingList
+                            Einkaufsliste
                         </NavLink>
                         <NavLink to="/overview" style={style}>
-                            Overview
+                            Übersicht
                         </NavLink>
                         <NavLink to="/splitter" style={style}>
                             Splitter
