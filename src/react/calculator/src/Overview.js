@@ -1,14 +1,70 @@
-import './Overview.css';
+// import libraries
+import * as React from 'react';
+import Table from 'react-bootstrap/Table';
 import useFetch from "react-fetch-hook";
-import { Link } from 'react-router-dom';
-function divider(sharedWith) {
-  if (typeof (sharedWith == "String")) {
-    return 2
+
+// import required css
+import './Overview.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+
+
+
+const Overview = () => {
+  const { isLoading, data } = useFetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/bills");
+
+  // define click handler for "Löschen" buton for deleting bills
+  const handleClick = (billID) => {
+    // only delete, if user confirms
+    if (window.confirm('Are you sure you want to press this button?')) {
+      deleteBill(billID)
+    }
+  };
+
+  if (isLoading === false) {
+
+    // filter /api/bills data to all datasets, that the user is creditor or debtor of
+    let overviewData = data.filter(overviewData => (overviewData.debtorPersonID == sessionStorage.getItem('myPersonID') || (overviewData.creditorPersonID == sessionStorage.getItem('myPersonID'))))
+
+    // return table of all entries that affect the logged in user -> user can't see entries of other users in the group that don't affect him
+    return (
+      <div className="App col">
+
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Gläubiger</th>
+              <th>Schuldner</th>
+              <th>Kommentar</th>
+              <th>Datum</th>
+              <th>Betrag</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {/*create dynamically table content*/}
+            {overviewData.map(item => (
+              <tr>
+                <td>{item.creditorFirstname + " " + item.creditorLastname}</td>
+                <td>{item.debtorFullName}</td>
+                <td>{item.comment}</td>
+                <td>{item.date}</td>
+                <td>{item.amount}</td>
+                <td><button class="w-100 btn btn-lg btn-primary" type="submit" onClick={() => handleClick(item.billID)}>Löschen!</button></td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+
+      </div>
+    );
   }
-  else return sharedWith.length + 1
 }
 
-function deleteEntry(billID) {
+
+// give useer the possibility to delete bills with delete rest call
+function deleteBill(billID) {
   fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/bills/" + billID, {
 
     headers: {
@@ -19,45 +75,6 @@ function deleteEntry(billID) {
   })
     .then(function (res) { window.location.reload() })
     .catch(function (res) { console.log(res) })
-}
-
-// ...
-
-
-
-
-function App2() {
-  const { isLoading, data } = useFetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/bills");
-  if (isLoading === false) {
-    console.log(Object.keys(data))
-    console.log()
-
-    return (
-      <div className="App">
-        <table>
-          <tr>
-            <th>Gläubiger</th>
-            <th>Rechnung</th>
-            <th>Schuldner</th>
-            <th>Datum</th>
-            <th>Betrag</th>
-            <th></th>
-          </tr>
-          {data.map(item => (
-            <tr>
-              <td>{item.contributor}</td>
-              <td>{item.billID}</td>
-              <td>{item.sharedWith}</td>
-              <td>{item.datum}</td>
-              <td>{item.amount}</td>
-              <td><button onClick={() => deleteEntry(item.billID)}>Löschen!</button></td>
-            </tr>
-          ))}
-        </table>
-      </div>
-
-    );
-  }
 }
 
 export default Overview;
