@@ -14,7 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const ShoppingList = () => {
-  const { isLoading, data } = useFetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/shoppingList");
+  const { isLoading, data } = useFetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu82.gitpod.io/api/shoppingList");
   const { register, handleSubmit, formState } = useForm();
 
   // click handler of delete button for deleting shopping list entries
@@ -93,7 +93,7 @@ const ShoppingList = () => {
 
 // delete entry from shoppingListID
 function deleteEntry(shoppingListID) {
-  fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/shoppingList/" + shoppingListID, {
+  fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu82.gitpod.io/api/shoppingList/" + shoppingListID, {
 
     headers: {
       'Accept': 'application/json',
@@ -107,7 +107,7 @@ function deleteEntry(shoppingListID) {
 
 // add entry to the shoppinglist
 function addEntry(shoppingListItem, itemAmount) {
-  fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/shoppingList?" + "item=" + shoppingListItem + "&amount=" + itemAmount + "&shoppingListID=" + uuid() + "&groupID=" + sessionStorage.getItem('myGroupID'), {
+  fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu82.gitpod.io/api/shoppingList?" + "item=" + shoppingListItem + "&amount=" + itemAmount + "&shoppingListID=" + uuid() + "&groupID=" + sessionStorage.getItem('myGroupID'), {
 
     headers: {
       'Accept': 'application/json',

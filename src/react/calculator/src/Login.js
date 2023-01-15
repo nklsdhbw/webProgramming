@@ -12,7 +12,7 @@ const Login = () => {
     const navigate = useNavigate();
     const { register, handleSubmit, formState } = useForm();
     let { isLoading, data } = useFetch(
-        "https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/login"
+        "https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu82.gitpod.io/api/login"
     );
 
 
