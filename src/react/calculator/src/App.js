@@ -1,15 +1,14 @@
 // import libraries
 import * as React from 'react'
-import { BrowserRouter, Routes, Route, Outlet, NavLink, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // import components
-import Navbar from 'react-bootstrap/Navbar'
 import Overview from './Overview.js'
 import Splitter from './Splitter.js'
 import Login from './Login.js'
 import Register from './Register.js'
 import ShoppingList from './ShoppingList.js'
-
+import Layout from './Layout.js'
 
 // import required css
 import './App.css'
@@ -37,47 +36,7 @@ const App = () => {
     );
 };
 
-const Layout = () => {
-    const style = ({ isActive }) => ({
-        fontWeight: isActive ? 'bold' : 'normal',
-        color: 'black',
-        margin: '0 1rem',
-        textDecoration: "none"
 
-    });
-    const location = useLocation();
-    // get the current route from the location object
-    const currentRoute = location.pathname;
-    console.log(currentRoute)
-    return (
-        <>
-            <div>
-                <h1 id="title"><strong>Splitmate</strong></h1>
-            </div>
-
-            <div>
-
-                {(currentRoute !== '/' && currentRoute !== "/register") && (
-                    <Navbar bg="white" variant="light" className="justify-content-center" hidden={false}>
-                        <NavLink to="/shoppinglist" style={style} textDecoration="none">
-                            Einkaufsliste
-                        </NavLink>
-                        <NavLink to="/overview" style={style}>
-                            Übersicht
-                        </NavLink>
-                        <NavLink to="/splitter" style={style}>
-                            Splitter
-                        </NavLink>
-                    </Navbar>)}
-
-            </div>
-
-            <main style={{ padding: '1rem 0' }}>
-                <Outlet />
-            </main>
-        </>
-    );
-};
 
 
 

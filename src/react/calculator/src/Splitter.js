@@ -11,14 +11,21 @@ import './Splitter.css';
 
 const Splitter = () => {
   const contributor = sessionStorage.getItem('myFirstname');
-  const { isLoading, data } = useFetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/login");
+  const { isLoading, data } = useFetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu82.gitpod.io/api/login");
   const { register, handleSubmit, formState } = useForm();
 
+  let loginData;
   // display loading text when data is not fully loaded
   if (isLoading) {
     console.log("...loading")
     return <div>Is loading!</div>
   }
+  else {
+    loginData = data
+  }
+
+
+
 
 
   // filter loginData to specific groupID from user
@@ -49,7 +56,7 @@ const Splitter = () => {
     debtorFullName.forEach(element => {
       let debtorPersonID = loginData.find(x => (x.firstname + " " + x.lastname) === element).personID
 
-      fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu81.gitpod.io/api/bills?creditorFirstname=" + sessionStorage.getItem('myFirstname') + "&creditorLastname=" + sessionStorage.getItem('myLastname') + "&creditorPersonID=" + sessionStorage.getItem('myPersonID') + "&amount=" + (splitterData.amount / amountPeople) + "&debtorFullName=" + element + "&debtorPersonID=" + debtorPersonID + "&comment=" + splitterData.comment + "&billID=" + uuid() + "&date=" + date + "&groupID=" + sessionStorage.getItem('myGroupID'), {
+      fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu82.gitpod.io/api/bills?creditorFirstname=" + sessionStorage.getItem('myFirstname') + "&creditorLastname=" + sessionStorage.getItem('myLastname') + "&creditorPersonID=" + sessionStorage.getItem('myPersonID') + "&amount=" + (splitterData.amount / amountPeople) + "&debtorFullName=" + element + "&debtorPersonID=" + debtorPersonID + "&comment=" + splitterData.comment + "&billID=" + uuid() + "&date=" + date + "&groupID=" + sessionStorage.getItem('myGroupID'), {
 
         headers: {
           'Accept': 'application/json',
@@ -79,7 +86,7 @@ const Splitter = () => {
           </div>
         </div>
 
-        <div class="row">
+        <div class="row" id="debtors" >
           <div class="col checkbox mb-3">
             {loginDataGrouped.map(item => (
               <div>

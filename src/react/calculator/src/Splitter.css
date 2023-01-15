@@ -35,3 +35,8 @@
   /* style the checkboxes */
   margin-right: 10px;
 }
+
+#debtors {
+  width: 300px;
+  margin: 0 auto;
+}
