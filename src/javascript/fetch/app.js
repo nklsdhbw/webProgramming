@@ -5,13 +5,6 @@ const app = express();
 const path = require('path');
 const uuid4 = require('uuid4');
 
-
-
-
-
-
-/// bills api ///
-let bills = [{ "billID": "1", "creditorFirstname": "Luca", "creditorLastname": "Mohr", "creditorPersonID": "1", "amount": "13.30", "debtorFullName": "Niklas Scholz", "debtorPersonID": "2", "comment": "test", "date": "2022-01-06", "groupID": 1 }, { "billID": "2", "creditorFirstname": "Niklas", "creditorLastname": "Scholz", "creditorPersonID": "1", "amount": "13.30", "debtorFullName": "Luca Mohr", "debtorPersonID": "1", "comment": "Test 2", "date": "2022-01-06", "groupID": 1 }]
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
@@ -19,6 +12,13 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true); // If needed
     next();
 });
+
+
+
+
+/// bills api ///
+let bills = [{ "billID": "1", "creditorFirstname": "Luca", "creditorLastname": "Mohr", "creditorPersonID": "1", "amount": "13.30", "debtorFullName": "Niklas Scholz", "debtorPersonID": "2", "comment": "test", "date": "2022-01-06", "groupID": 1 }, { "billID": "2", "creditorFirstname": "Niklas", "creditorLastname": "Scholz", "creditorPersonID": "1", "amount": "13.30", "debtorFullName": "Luca Mohr", "debtorPersonID": "1", "comment": "Test 2", "date": "2022-01-06", "groupID": 1 }]
+
 
 // create api
 app.post('/api/bills', (req, res) => {
