@@ -79,7 +79,7 @@ const Splitter = () => {
           </div>
         </div>
 
-        <div class="row">
+        <div class="row" id="debtors">
           <div class="col checkbox mb-3">
             {loginDataGrouped.map(item => (
               <div>

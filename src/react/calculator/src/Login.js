@@ -19,35 +19,36 @@ const Login = () => {
     const onSubmit = formData => {
 
         // dont do sth, until data isnt loaded
-        if (isLoading) {
-            return;
-        }
+        if (!isLoading) {
 
-        // declare login status
-        let loginSuccess = false
 
-        // iterate over the data from /api/login and check if the inputs are in the array(=database)
-        data.forEach(element => {
-            if (
-                formData.username === element.eMail &&
-                formData.password === element.password
-            ) {
-                // set user specific variables and store them in session storage of browser
-                sessionStorage.setItem("myFirstname", element.firstname);
-                sessionStorage.setItem("myLastname", element.lastname);
-                sessionStorage.setItem("myGroupID", element.groupID);
-                sessionStorage.setItem("myPersonID", element.personID);
 
-                // after successfull login navigate to overview page
-                navigate("overview");
-                loginSuccess = true
+            // declare login status
+            let loginSuccess = false
+
+            // iterate over the data from /api/login and check if the inputs are in the array(=database)
+            data.forEach(element => {
+                if (
+                    formData.username === element.eMail &&
+                    formData.password === element.password
+                ) {
+                    // set user specific variables and store them in session storage of browser
+                    sessionStorage.setItem("myFirstname", element.firstname);
+                    sessionStorage.setItem("myLastname", element.lastname);
+                    sessionStorage.setItem("myGroupID", element.groupID);
+                    sessionStorage.setItem("myPersonID", element.personID);
+
+                    // after successfull login navigate to overview page
+                    navigate("overview");
+                    loginSuccess = true
+                }
+
+            });
+
+            // alert user if password or email is false
+            if (!loginSuccess) {
+                alert("invalid password or email!")
             }
-
-        });
-
-        // alert user if password or email is false
-        if (!loginSuccess) {
-            alert("invalid password or email!")
         }
     };
 
