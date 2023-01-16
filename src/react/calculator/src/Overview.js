@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const Overview = () => {
-  const { isLoading, data } = useFetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu82.gitpod.io/api/bills");
+  const { isLoading, data } = useFetch("/api/bills");
 
   // define click handler for "Löschen" buton for deleting bills
   const handleClick = (billID) => {
@@ -65,7 +65,7 @@ const Overview = () => {
 
 // give useer the possibility to delete bills with delete rest call
 function deleteBill(billID) {
-  fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu82.gitpod.io/api/bills/" + billID, {
+  fetch("/api/bills/" + billID, {
 
     headers: {
       'Accept': 'application/json',

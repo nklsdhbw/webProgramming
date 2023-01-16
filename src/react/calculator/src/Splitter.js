@@ -11,7 +11,7 @@ import './Splitter.css';
 
 const Splitter = () => {
   const contributor = sessionStorage.getItem('myFirstname');
-  const { isLoading, data } = useFetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu82.gitpod.io/api/login");
+  const { isLoading, data } = useFetch("/api/login");
   const { register, handleSubmit, formState } = useForm();
 
   let loginData;
@@ -56,7 +56,7 @@ const Splitter = () => {
     debtorFullName.forEach(element => {
       let debtorPersonID = loginData.find(x => (x.firstname + " " + x.lastname) === element).personID
 
-      fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu82.gitpod.io/api/bills?creditorFirstname=" + sessionStorage.getItem('myFirstname') + "&creditorLastname=" + sessionStorage.getItem('myLastname') + "&creditorPersonID=" + sessionStorage.getItem('myPersonID') + "&amount=" + (splitterData.amount / amountPeople) + "&debtorFullName=" + element + "&debtorPersonID=" + debtorPersonID + "&comment=" + splitterData.comment + "&billID=" + uuid() + "&date=" + date + "&groupID=" + sessionStorage.getItem('myGroupID'), {
+      fetch("/api/bills?creditorFirstname=" + sessionStorage.getItem('myFirstname') + "&creditorLastname=" + sessionStorage.getItem('myLastname') + "&creditorPersonID=" + sessionStorage.getItem('myPersonID') + "&amount=" + (splitterData.amount / amountPeople) + "&debtorFullName=" + element + "&debtorPersonID=" + debtorPersonID + "&comment=" + splitterData.comment + "&billID=" + uuid() + "&date=" + date + "&groupID=" + sessionStorage.getItem('myGroupID'), {
 
         headers: {
           'Accept': 'application/json',
