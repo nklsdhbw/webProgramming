@@ -14,17 +14,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const Register = () => {
-    if (!sessionStorage.getItem("loggedIn")) {
-        window.location.href = "./"
 
-    }
 
     const { isLoading, data } = useFetch("/api/login");
     const { register, handleSubmit, formState } = useForm();
     const navigate = useNavigate();
 
     // continue when data is fully loaded
-    if (isLoading === false) {
+    if (!isLoading) {
 
         // get groupIDs from the /api/login data and keep only distinct groupIDs
         let groupIDs = data.map(loginData => loginData.groupID);

@@ -16,7 +16,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const ShoppingList = () => {
 
   if (!sessionStorage.getItem("loggedIn")) {
-    window.location.href = "./"
+    window.location.href = "/"
 
   }
   const { isLoading, data } = useFetch("/api/shoppingList");

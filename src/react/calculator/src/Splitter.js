@@ -11,7 +11,7 @@ import './Splitter.css';
 
 const Splitter = () => {
   if (!sessionStorage.getItem("loggedIn")) {
-    window.location.href = "./"
+    window.location.href = "/"
 
   }
 
