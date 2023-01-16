@@ -11,8 +11,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
+
 const Overview = () => {
+  //navigate user to login page if he's not logged in and tries to navigate to this page via url.
+  // "/" in this case is the index elements and redirects to login
+  if (!sessionStorage.getItem("loggedIn")) {
+    window.location.href = "./"
+
+  }
   const { isLoading, data } = useFetch("/api/bills");
+
+
+
 
   // define click handler for "Löschen" buton for deleting bills
   const handleClick = (billID) => {

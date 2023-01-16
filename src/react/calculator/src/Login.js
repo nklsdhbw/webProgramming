@@ -24,7 +24,7 @@ const Login = () => {
 
 
         // declare login status
-        let loginSuccess = false
+        sessionStorage.setItem("loggedIn", false)
 
         // iterate over the data from /api/login and check if the inputs are in the array(=database)
         data.forEach(element => {
@@ -40,13 +40,13 @@ const Login = () => {
 
                 // after successfull login navigate to overview page
                 navigate("overview");
-                loginSuccess = true
+                sessionStorage.setItem("loggedIn", true)
             }
 
         });
 
         // alert user if password or email is false
-        if (!loginSuccess) {
+        if (!sessionStorage.getItem("loggedIn")) {
             alert("invalid password or email!")
         }
         // }

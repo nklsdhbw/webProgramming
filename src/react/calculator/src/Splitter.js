@@ -10,7 +10,12 @@ import './Splitter.css';
 
 
 const Splitter = () => {
-  const contributor = sessionStorage.getItem('myFirstname');
+  if (!sessionStorage.getItem("loggedIn")) {
+    window.location.href = "./"
+
+  }
+
+
   const { isLoading, data } = useFetch("/api/login");
   const { register, handleSubmit, formState } = useForm();
 
