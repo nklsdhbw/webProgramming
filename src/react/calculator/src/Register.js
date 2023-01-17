@@ -15,12 +15,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Register = () => {
 
-    const { isLoading, data } = useFetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu82.gitpod.io/api/login");
+
+    const { isLoading, data } = useFetch("/api/login");
     const { register, handleSubmit, formState } = useForm();
     const navigate = useNavigate();
 
     // continue when data is fully loaded
-    if (isLoading === false) {
+    if (!isLoading) {
 
         // get groupIDs from the /api/login data and keep only distinct groupIDs
         let groupIDs = data.map(loginData => loginData.groupID);
@@ -56,7 +57,7 @@ const Register = () => {
                 }
 
                 // add new user with eMail, password, firstname, lastname, personID and groupID to api/database
-                fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu82.gitpod.io/api/login?" + "eMail=" + registerData.eMail + "&password=" + registerData.password + "&firstname=" + registerData.firstname + "&lastname=" + registerData.lastname + "&personID=" + personID + "&groupID=" + registerData.groupID, {
+                fetch("/api/login?" + "eMail=" + registerData.eMail + "&password=" + registerData.password + "&firstname=" + registerData.firstname + "&lastname=" + registerData.lastname + "&personID=" + personID + "&groupID=" + registerData.groupID, {
 
                     headers: {
                         'Accept': 'application/json',
@@ -72,6 +73,8 @@ const Register = () => {
                 sessionStorage.setItem("myLastname", registerData.lastname);
                 sessionStorage.setItem("myGroupID", registerData.groupID);
                 sessionStorage.setItem("myPersonID", personID);
+
+                sessionStorage.setItem("loggedIn", JSON.stringify(true))
                 navigate("/overview")
             }
         }

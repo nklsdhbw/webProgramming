@@ -1,6 +1,7 @@
 import Navbar from 'react-bootstrap/Navbar'
 import { Outlet, NavLink, useLocation } from 'react-router-dom'
 const Layout = () => {
+    const location = useLocation()
     const style = ({ isActive }) => ({
         fontWeight: isActive ? 'bold' : 'normal',
         color: 'black',
@@ -8,10 +9,12 @@ const Layout = () => {
         textDecoration: "none"
 
     });
-    const location = useLocation();
+
     // get the current route from the location object
     const currentRoute = location.pathname;
-    console.log(currentRoute)
+
+    // only display navbar when user is logged in, so he's redirected from "/"
+    // which means login or from "/register"
     return (
         <>
             <div>
@@ -43,3 +46,5 @@ const Layout = () => {
 };
 
 export default Layout
+
+

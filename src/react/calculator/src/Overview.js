@@ -11,21 +11,38 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
+
 const Overview = () => {
-  const { isLoading, data } = useFetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu82.gitpod.io/api/bills");
+  //navigate user to login page if he's not logged in and tries to navigate to this page via url.
+  // "/" in this case is the index elements and redirects to login
+  if (!JSON.parse(sessionStorage.getItem("loggedIn"))) {
+    window.location.href = "/"
+
+  }
+  const { isLoading, data } = useFetch("/api/bills");
+
+
+
 
   // define click handler for "Löschen" buton for deleting bills
   const handleClick = (billID) => {
     // only delete, if user confirms
-    if (window.confirm('Are you sure you want to press this button?')) {
+    if (window.confirm('Möchtest du wirklich die Rechnung löschen?')) {
       deleteBill(billID)
     }
   };
 
-  if (isLoading === false) {
+  if (!isLoading) {
 
     // filter /api/bills data to all datasets, that the user is creditor or debtor of
     let overviewData = data.filter(overviewData => (overviewData.debtorPersonID == sessionStorage.getItem('myPersonID') || (overviewData.creditorPersonID == sessionStorage.getItem('myPersonID'))))
+
+    // sort overviewData
+    function comp(a, b) {
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    }
+
+    overviewData.sort(comp);
 
     // return table of all entries that affect the logged in user -> user can't see entries of other users in the group that don't affect him
     return (
@@ -49,7 +66,7 @@ const Overview = () => {
                 <td>{item.creditorFirstname + " " + item.creditorLastname}</td>
                 <td>{item.debtorFullName}</td>
                 <td>{item.comment}</td>
-                <td>{item.date}</td>
+                <td>{item.date.substring(0, 10)}</td>
                 <td>{item.amount}</td>
                 <td><button class="w-100 btn btn-lg btn-primary" type="submit" onClick={() => handleClick(item.billID)}>Löschen!</button></td>
               </tr>
@@ -65,7 +82,7 @@ const Overview = () => {
 
 // give useer the possibility to delete bills with delete rest call
 function deleteBill(billID) {
-  fetch("https://8080-nklsdhbw-webprogramming-ltpyo05qis6.ws-eu82.gitpod.io/api/bills/" + billID, {
+  fetch("/api/bills/" + billID, {
 
     headers: {
       'Accept': 'application/json',

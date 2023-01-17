@@ -29,7 +29,7 @@ const App = () => {
                     <Route path="splitter" element={<Splitter />} />
                     <Route path="login" element={<Login />} />
                     <Route path="register" element={<Register />} />
-                    <Route path="*" element={<p>There's nothing here: 404!</p>} />
+                    <Route path="*" element={<Login />/*<p>There's nothing here: 404!</p>*/} />
                 </Route>
             </Routes>
         </BrowserRouter>
