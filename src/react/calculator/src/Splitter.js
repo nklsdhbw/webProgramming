@@ -43,7 +43,7 @@ const Splitter = () => {
     // create date and extract date in format yyyy-mm-dd via substring. this date is later added when submitting the entry
     let date = new Date();
     date = date.toISOString()
-    date = date.substring(0, 10)
+    //date = date.substring(0, 10)
 
     // get debtorFullname from the input data
     let debtorFullName = splitterData.debtorFullName

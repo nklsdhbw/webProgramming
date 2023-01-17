@@ -73,6 +73,8 @@ const Register = () => {
                 sessionStorage.setItem("myLastname", registerData.lastname);
                 sessionStorage.setItem("myGroupID", registerData.groupID);
                 sessionStorage.setItem("myPersonID", personID);
+
+                sessionStorage.setItem("loggedIn", JSON.stringify(true))
                 navigate("/overview")
             }
         }

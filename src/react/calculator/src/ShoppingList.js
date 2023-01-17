@@ -26,7 +26,7 @@ const ShoppingList = () => {
   const handleClick = (shoppingListID) => {
 
     // only delete, if user confirms
-    if (window.confirm('Are you sure you want to press this button?')) {
+    if (window.confirm('Möchtest du wirklich den Gegenstand von der Einkaufliste löschen?')) {
 
 
       deleteEntry(shoppingListID)
