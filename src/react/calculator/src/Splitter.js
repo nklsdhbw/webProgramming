@@ -92,7 +92,7 @@ const Splitter = () => {
 
           {(loginDataGrouped.length === 0) && (
             <div className="row" id="debtors" >
-              <p><strong>Aktuell kannst du den Splitter nicht benutzen, da du alleine in der Gruppe bist. Du kannst aber schon einmal die Funktionsweise testen</strong></p>
+              <p><strong>Aktuell kannst du den Splitter nicht benutzen, da du alleine in der Gruppe bist. Du kannst aber schon einmal die Funktionsweise anschauen.</strong></p>
             </div>)}
 
           <div className="row">
@@ -118,8 +118,8 @@ const Splitter = () => {
           {(loginDataGrouped.length === 0) && (<div className="row" id="debtors" >
             <div className="col checkbox mb-3">
               <div>
-                <input type="checkbox" value="Max Mustermann" />
-                <label htmlFor="Max Mustermann">Max Mustermann</label>
+                <input type="checkbox" value="Beispiel User" />
+                <label htmlFor="Beispiel User">Beispiel User</label>
               </div>
             </div>
           </div>)}
