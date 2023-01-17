@@ -61,7 +61,7 @@ const Splitter = () => {
     debtorFullName.forEach(element => {
       let debtorPersonID = loginData.find(x => (x.firstname + " " + x.lastname) === element).personID
 
-      fetch("/api/bills?creditorFirstname=" + sessionStorage.getItem('myFirstname') + "&creditorLastname=" + sessionStorage.getItem('myLastname') + "&creditorPersonID=" + sessionStorage.getItem('myPersonID') + "&amount=" + (splitterData.amount / amountPeople) + "&debtorFullName=" + element + "&debtorPersonID=" + debtorPersonID + "&comment=" + splitterData.comment + "&billID=" + uuid() + "&date=" + date + "&groupID=" + sessionStorage.getItem('myGroupID'), {
+      fetch("/api/bills?creditorFirstname=" + sessionStorage.getItem('myFirstname') + "&creditorLastname=" + sessionStorage.getItem('myLastname') + "&creditorPersonID=" + sessionStorage.getItem('myPersonID') + "&amount=" + (splitterData.amount / amountPeople).toFixed(2) + "&debtorFullName=" + element + "&debtorPersonID=" + debtorPersonID + "&comment=" + splitterData.comment + "&billID=" + uuid() + "&date=" + date + "&groupID=" + sessionStorage.getItem('myGroupID'), {
 
         headers: {
           'Accept': 'application/json',
@@ -86,7 +86,7 @@ const Splitter = () => {
           <div class="col">
             <div class="input-group mb-3">
               <span class="input-group-text">Betrag €</span>
-              <input {...register("amount", { required: true })} type="number" min="0" class="form-control" aria-label="Amount (to the nearest dollar)"></input>
+              <input {...register("amount", { required: true })} type="number" min="0" step="0.01" class="form-control" aria-label="Amount (to the nearest dollar)"></input>
             </div>
           </div>
         </div>
