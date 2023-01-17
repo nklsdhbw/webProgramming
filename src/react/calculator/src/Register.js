@@ -15,8 +15,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Register = () => {
 
-
+    // fetch loginData from /api/login
     const { isLoading, data } = useFetch("/api/login");
+
     const { register, handleSubmit, formState } = useForm();
     const navigate = useNavigate();
 
@@ -46,17 +47,20 @@ const Register = () => {
             else {
 
                 // creat new group number if the user want's to create an own group instead of joining an existing
+                // the groups start with 1, 2, 3 so the new group number is the max. number +1 or more simpl
+                // the lenght of the groupIDs array + 1
                 if (registerData.groupID === "create own group") {
                     registerData.groupID = groupIDs.length + 1
                 }
 
-                // create unique personID and check if it's already exists. If it exists already, generate a new unique id and check again
+                // create unique personID and check if it's already exists.
+                // If it exists already, generate a new unique id and check again
                 let personID = uuid()
                 while (personID in personIDs) {
                     personID = uuid()
                 }
 
-                // add new user with eMail, password, firstname, lastname, personID and groupID to api/database
+                // add new user with eMail, password, firstname, lastname, personID and groupID to api/login
                 fetch("/api/login?" + "eMail=" + registerData.eMail + "&password=" + registerData.password + "&firstname=" + registerData.firstname + "&lastname=" + registerData.lastname + "&personID=" + personID + "&groupID=" + registerData.groupID, {
 
                     headers: {
@@ -68,19 +72,22 @@ const Register = () => {
                     .then(function (res) { window.location.reload() })
                     .catch(function (res) { console.log(res) })
 
-                // store the needed user data in sessionStorage
+                // store the needed user data for the further process in sessionStorage
                 sessionStorage.setItem("myFirstname", registerData.firstname);
                 sessionStorage.setItem("myLastname", registerData.lastname);
                 sessionStorage.setItem("myGroupID", registerData.groupID);
                 sessionStorage.setItem("myPersonID", personID);
 
+                // after registration, user is logged in so change loggedIn variable to true
+                // and navigate then to the "overview" page
                 sessionStorage.setItem("loggedIn", JSON.stringify(true))
                 navigate("/overview")
             }
         }
 
         // return form with input fields for registrating a new user
-        // disable the "register" button if inputValidation is false, for example empty input fields or not an input with eMail format in email input field
+        // disable the "register" button if inputValidation is false, 
+        // for example empty input fields or not an input with eMail format in email input field
         return (
 
             <form novalidate onSubmit={handleSubmit(onSubmit)}>

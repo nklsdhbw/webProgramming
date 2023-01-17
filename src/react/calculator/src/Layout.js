@@ -1,3 +1,4 @@
+// import libraries
 import Navbar from 'react-bootstrap/Navbar'
 import { Outlet, NavLink, useLocation } from 'react-router-dom'
 const Layout = () => {

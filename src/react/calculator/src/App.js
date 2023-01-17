@@ -19,6 +19,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 const App = () => {
 
+
+    // create routes for routing between the sites
     return (
         <BrowserRouter>
             <Routes>
@@ -29,7 +31,7 @@ const App = () => {
                     <Route path="splitter" element={<Splitter />} />
                     <Route path="login" element={<Login />} />
                     <Route path="register" element={<Register />} />
-                    <Route path="*" element={<Login />/*<p>There's nothing here: 404!</p>*/} />
+                    <Route path="*" element={<Login />} />
                 </Route>
             </Routes>
         </BrowserRouter>

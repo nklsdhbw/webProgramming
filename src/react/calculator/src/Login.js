@@ -27,7 +27,9 @@ const Login = () => {
 
 
         // iterate over the data from /api/login and check if the inputs are in the array(=database)
-        data.forEach(element => {
+        let loginData = data
+
+        loginData.forEach(element => {
             if (
                 formData.username === element.eMail &&
                 formData.password === element.password
@@ -42,6 +44,7 @@ const Login = () => {
                 sessionStorage.setItem("loggedIn", JSON.stringify(true))
                 navigate("overview");
 
+
             }
 
         });
@@ -55,8 +58,7 @@ const Login = () => {
 
     // dont do sth, until data isnt loaded
     if (!isLoading) {
-        // return form for submitting data
-        // set all input fields to required to prevent user to try login in without credentials
+
 
         //check if user is already logged in, if so, automatically redirect to overview
         if ((JSON.parse(sessionStorage.getItem("loggedIn")))) {
@@ -64,6 +66,11 @@ const Login = () => {
 
         }
         else {
+
+            // user is not logged in
+            // return login mask
+            // checks if email input is email type
+            // input fields are set ro required to prevent user from submitting (button is disabled until the validation doesn't fail anymore)
 
             return (
                 <form onSubmit={handleSubmit(onSubmit)}>
