@@ -86,40 +86,40 @@ const Splitter = () => {
     // submit button is disabled until all fields EXCEPT comment is empty, so comment is optional
     return (
 
-      <main class="form-signin w-100 m-auto">
+      <main className="form-signin w-100 m-auto">
 
         <form onSubmit={handleSubmit(onSubmit)}>
 
           {(loginDataGrouped.length === 0) && (
-            <div class="row" id="debtors" >
+            <div className="row" id="debtors" >
               <p><strong>Aktuell kannst du den Splitter nicht benutzen, da du alleine in der Gruppe bist. Du kannst aber schon einmal die Funktionsweise testen</strong></p>
             </div>)}
 
-          <div class="row">
-            <div class="col">
-              <div class="input-group mb-3">
-                <span class="input-group-text">Betrag €</span>
-                <input {...register("amount", { required: true })} type="number" min="0" step="0.01" class="form-control" aria-label="Amount (to the nearest dollar)"></input>
+          <div className="row">
+            <div className="col">
+              <div className="input-group mb-3">
+                <span className="input-group-text">Betrag €</span>
+                <input {...register("amount", { required: true })} type="number" min="0" step="0.01" className="form-control" aria-label="Amount (to the nearest dollar)"></input>
               </div>
             </div>
           </div>
 
-          {(loginDataGrouped.length != 0) && (<div class="row" id="debtors" >
-            <div class="col checkbox mb-3">
+          {(loginDataGrouped.length != 0) && (<div className="row" id="debtors" >
+            <div className="col checkbox mb-3">
               {loginDataGrouped.map(user => (
                 <div>
                   <input {...register("debtorFullName", { required: true })} type="checkbox" value={user.firstname + " " + user.lastname} />
-                  <label for={user.firstname + " " + user.lastname}>{user.firstname + " " + user.lastname}</label>
+                  <label htmlFor={user.firstname + " " + user.lastname}>{user.firstname + " " + user.lastname}</label>
                 </div>
               ))}
             </div>
           </div>)}
 
-          {(loginDataGrouped.length === 0) && (<div class="row" id="debtors" >
-            <div class="col checkbox mb-3">
+          {(loginDataGrouped.length === 0) && (<div className="row" id="debtors" >
+            <div className="col checkbox mb-3">
               <div>
                 <input type="checkbox" value="Max Mustermann" />
-                <label for="Max Mustermann">Max Mustermann</label>
+                <label htmlFor="Max Mustermann">Max Mustermann</label>
               </div>
             </div>
           </div>)}
@@ -129,28 +129,28 @@ const Splitter = () => {
 
 
 
-          <div class="row">
-            <div class="col">
-              <div class="input-group mb-3" id="Kommentar">
-                <span class="input-group-text">Kommentar</span>
-                <textarea {...register("comment")} class="form-control" aria-label="Kommentar"></textarea>
+          <div className="row">
+            <div className="col">
+              <div className="input-group mb-3" id="Kommentar">
+                <span className="input-group-text">Kommentar</span>
+                <textarea {...register("comment")} className="form-control" aria-label="Kommentar"></textarea>
               </div>
             </div>
           </div>
 
-          {(loginDataGrouped.length != 0) && (<div class="row">
-            <div class="col">
+          {(loginDataGrouped.length != 0) && (<div className="row">
+            <div className="col">
               <div>
-                <button id="create" class="w-100 btn btn-lg btn-primary" type="submit" disabled={!formState.isValid}>
+                <button id="create" className="w-100 btn btn-lg btn-primary" type="submit" disabled={!formState.isValid}>
                   splitten
                 </button>
               </div>
             </div>
           </div>)}
-          {(loginDataGrouped.length === 0) && (<div class="row">
-            <div class="col">
+          {(loginDataGrouped.length === 0) && (<div className="row">
+            <div className="col">
               <div>
-                <button id="create" class="w-100 btn btn-lg btn-primary" type="submit" disabled="true">
+                <button id="create" className="w-100 btn btn-lg btn-primary" type="submit" disabled={true}>
                   splitten
                 </button>
               </div>

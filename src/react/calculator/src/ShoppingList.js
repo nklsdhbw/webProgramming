@@ -102,9 +102,9 @@ const ShoppingList = () => {
               <Table striped bordered hover className="table mx-auto">
                 <thead>
                   <tr>
-                    <th class="col">Gegenstand</th>
-                    <th class="col">Menge</th>
-                    <th class="col"></th>
+                    <th className="col">Gegenstand</th>
+                    <th className="col">Menge</th>
+                    <th className="col"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -112,7 +112,7 @@ const ShoppingList = () => {
                     <tr>
                       <td>{entry.item}</td>
                       <td>{entry.amount}</td>
-                      <td><button class="w-100 btn btn-lg btn-primary" onClick={() => handleClick(entry.shoppingListID)}>Löschen!</button></td>
+                      <td><button className="w-100 btn btn-lg btn-primary" onClick={() => handleClick(entry.shoppingListID)}>Löschen!</button></td>
                     </tr>
                   ))}
                 </tbody>
@@ -121,16 +121,16 @@ const ShoppingList = () => {
             </div>
 
             <div id="addShoppingListEntry">
-              <div class="input-group mb-3">
-                <span class="input-group-text">Gegenstand</span>
-                <input {...register("shoppingListItem", { required: true })} id="shoppingListItem" type="text" class="form-control"></input>
+              <div className="input-group mb-3">
+                <span className="input-group-text">Gegenstand</span>
+                <input {...register("shoppingListItem", { required: true })} id="shoppingListItem" type="text" className="form-control"></input>
               </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text">Menge</span>
-                <input {...register("itemAmount", { required: true })} id="itemAmount" type="text" class="form-control"></input>
+              <div className="input-group mb-3">
+                <span className="input-group-text">Menge</span>
+                <input {...register("itemAmount", { required: true })} id="itemAmount" type="text" className="form-control"></input>
               </div>
               <div>
-                <button class="w-100 btn btn-lg btn-primary" disabled={!formState.isValid} type="submit">Hinzufügen zur Einkaufsliste</button>
+                <button className="w-100 btn btn-lg btn-primary" disabled={!formState.isValid} type="submit">Hinzufügen zur Einkaufsliste</button>
               </div>
             </div>
 

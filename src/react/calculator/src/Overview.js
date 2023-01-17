@@ -72,7 +72,7 @@ const Overview = () => {
                 <td>{bill.comment}</td>
                 <td>{bill.date.substring(0, 10)}</td>
                 <td>{bill.amount}</td>
-                <td><button class="w-100 btn btn-lg btn-primary" type="submit" onClick={() => handleClick(bill.billID)}>Löschen!</button></td>
+                <td><button className="w-100 btn btn-lg btn-primary" type="submit" onClick={() => handleClick(bill.billID)}>Löschen!</button></td>
               </tr>
             ))}
           </tbody>
