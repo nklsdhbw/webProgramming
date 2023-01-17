@@ -105,6 +105,7 @@ const Splitter = () => {
               ))}
             </div>
           </div>)}
+
           {(loginDataGrouped.length === 0) && (<div class="row" id="debtors" >
             <div class="col checkbox mb-3">
               <div>
