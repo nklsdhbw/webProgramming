@@ -61,7 +61,8 @@ const Register = () => {
                 }
 
                 // add new user with eMail, password, firstname, lastname, personID and groupID to api/login
-                fetch("/api/login?" + "eMail=" + registerData.eMail + "&password=" + registerData.password + "&firstname=" + registerData.firstname + "&lastname=" + registerData.lastname + "&personID=" + personID + "&groupID=" + registerData.groupID, {
+                // lowercase input email, so that email is not case sensitive
+                fetch("/api/login?" + "eMail=" + (registerData.eMail).toLowerCase() + "&password=" + registerData.password + "&firstname=" + registerData.firstname + "&lastname=" + registerData.lastname + "&personID=" + personID + "&groupID=" + registerData.groupID, {
 
                     headers: {
                         'Accept': 'application/json',
@@ -98,23 +99,23 @@ const Register = () => {
 
                 <div className="form-group">
                     <label>Vorname</label>
-                    <input {...register("firstname", { required: true })} className="form-control" id="firstname" />
+                    <input {...register("firstname", { required: true })} className="form-control" id="firstname" placeholder='Max' />
                 </div>
 
                 <div className="form-group">
                     <label >Nachname</label>
-                    <input {...register("lastname", { required: true })} className="form-control" id="lastname" />
+                    <input {...register("lastname", { required: true })} className="form-control" id="lastname" placeholder='Mustermann' />
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="email">E-Mail-Adresse</label>
-                    <input {...register("eMail", { required: true })} type="email" className="form-control" id="email" aria-describedby="emailHelp" />
+                    <input {...register("eMail", { required: true })} type="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder='max.mustermann@mail.com' />
                     <small id="emailHelp" className="form-text text-muted">Wir werden deine E-Mail-Adresse nicht weitergeben.</small>
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="password">Passwort</label>
-                    <input {...register("password", { required: true })} type="password" className="form-control" id="password" />
+                    <input {...register("password", { required: true })} type="password" className="form-control" id="password" placeholder='●●●●●●●●●●' />
                 </div>
 
                 <div>

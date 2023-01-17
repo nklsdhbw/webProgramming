@@ -27,11 +27,12 @@ const Login = () => {
 
 
         // iterate over the data from /api/login and check if the inputs are in the array(=database)
+        // lowercase input email, so that the case of the input email doesn't matter
         let loginData = data
 
         loginData.forEach(element => {
             if (
-                formData.username === element.eMail &&
+                (formData.username).toLowerCase() === element.eMail &&
                 formData.password === element.password
             ) {
                 // set user specific variables and store them in session storage of browser
@@ -83,6 +84,7 @@ const Login = () => {
                             className="form-control"
                             id="email"
                             aria-describedby="emailHelp"
+                            placeholder='example@mail.com'
                         />
                         <small id="emailHelp" className="form-text text-muted">
                             Wir werden deine E-Mail-Adresse nicht weitergeben.
@@ -96,6 +98,7 @@ const Login = () => {
                             type="password"
                             className="form-control"
                             id="password"
+                            placeholder='●●●●●●●●●'
                         />
                     </div>
 
