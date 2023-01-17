@@ -19,6 +19,8 @@ const Overview = () => {
     window.location.href = "/"
 
   }
+
+  // fetch all bills from /api/bills
   const { isLoading, data } = useFetch("/api/bills");
 
 
@@ -32,19 +34,21 @@ const Overview = () => {
     }
   };
 
+  // continue when data is loaded
   if (!isLoading) {
 
     // filter /api/bills data to all datasets, that the user is creditor or debtor of
     let overviewData = data.filter(overviewData => (overviewData.debtorPersonID == sessionStorage.getItem('myPersonID') || (overviewData.creditorPersonID == sessionStorage.getItem('myPersonID'))))
 
-    // sort overviewData
+    // sort overviewData by Time
     function comp(a, b) {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
     }
-
     overviewData.sort(comp);
 
-    // return table of all entries that affect the logged in user -> user can't see entries of other users in the group that don't affect him
+    // return table of all entries that affect the logged in user
+    // -> user can't see entries of other users in the group that don't affect him
+    // create for each entry a delete button
     return (
       <div className="App col">
 
@@ -61,14 +65,14 @@ const Overview = () => {
           </thead>
           <tbody>
             {/*create dynamically table content*/}
-            {overviewData.map(item => (
+            {overviewData.map(bill => (
               <tr>
-                <td>{item.creditorFirstname + " " + item.creditorLastname}</td>
-                <td>{item.debtorFullName}</td>
-                <td>{item.comment}</td>
-                <td>{item.date.substring(0, 10)}</td>
-                <td>{item.amount}</td>
-                <td><button class="w-100 btn btn-lg btn-primary" type="submit" onClick={() => handleClick(item.billID)}>Löschen!</button></td>
+                <td>{bill.creditorFirstname + " " + bill.creditorLastname}</td>
+                <td>{bill.debtorFullName}</td>
+                <td>{bill.comment}</td>
+                <td>{bill.date.substring(0, 10)}</td>
+                <td>{bill.amount}</td>
+                <td><button className="w-100 btn btn-lg btn-primary" type="submit" onClick={() => handleClick(bill.billID)}>Löschen!</button></td>
               </tr>
             ))}
           </tbody>

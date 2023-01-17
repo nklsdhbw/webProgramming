@@ -17,7 +17,7 @@ app.use(function (req, res, next) {
 
 
 /// bills api ///
-let bills = [{ "billID": "1", "creditorFirstname": "Luca", "creditorLastname": "Mohr", "creditorPersonID": "1", "amount": "13.30", "debtorFullName": "Niklas Scholz", "debtorPersonID": "2", "comment": "test", "date": "2022-01-06", "groupID": 1 }, { "billID": "2", "creditorFirstname": "Niklas", "creditorLastname": "Scholz", "creditorPersonID": "1", "amount": "13.30", "debtorFullName": "Luca Mohr", "debtorPersonID": "1", "comment": "Test 2", "date": "2022-01-06", "groupID": 1 }]
+let bills = [{ "billID": "1", "creditorFirstname": "Luca", "creditorLastname": "Mohr", "creditorPersonID": "1", "amount": "13.30", "debtorFullName": "Niklas Scholz", "debtorPersonID": "2", "comment": "test", "date": "2022-01-06", "groupID": 1 }, { "billID": "2", "creditorFirstname": "Niklas", "creditorLastname": "Scholz", "creditorPersonID": "1", "amount": "13.30", "debtorFullName": "Luca Mohr", "debtorPersonID": "1", "comment": "Test 2", "date": "2022-01-06", "groupID": 1 }, { "billID": "3", "creditorFirstname": "Tobias", "creditorLastname": "Ludwig", "creditorPersonID": "4", "amount": "13.30", "debtorFullName": "Simon Ludwig", "debtorPersonID": "3", "comment": "Lebensmittel", "date": "2022-01-06", "groupID": 2 }, { "billID": "4", "creditorFirstname": "Simon", "creditorLastname": "Ludwig", "creditorPersonID": "3", "amount": "13.30", "debtorFullName": "Tobias Ludwig", "debtorPersonID": "4", "comment": "Web-Programmierung Nachhilfe", "date": "2022-01-06", "groupID": 2 }]
 
 
 // create api

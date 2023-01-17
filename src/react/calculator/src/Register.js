@@ -15,8 +15,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Register = () => {
 
-
+    // fetch loginData from /api/login
     const { isLoading, data } = useFetch("/api/login");
+
     const { register, handleSubmit, formState } = useForm();
     const navigate = useNavigate();
 
@@ -40,24 +41,29 @@ const Register = () => {
         const onSubmit = registerData => {
 
             // check if user already has an account with the email given in the input field
-            if (eMails.includes(registerData.eMail)) {
+            // and lowercase email
+            if (eMails.includes((registerData.eMail).toLowerCase())) {
                 alert("User already exists! Login or register with anoter eMail")
             }
             else {
 
                 // creat new group number if the user want's to create an own group instead of joining an existing
+                // the groups start with 1, 2, 3 so the new group number is the max. number +1 or more simpl
+                // the lenght of the groupIDs array + 1
                 if (registerData.groupID === "create own group") {
                     registerData.groupID = groupIDs.length + 1
                 }
 
-                // create unique personID and check if it's already exists. If it exists already, generate a new unique id and check again
+                // create unique personID and check if it's already exists.
+                // If it exists already, generate a new unique id and check again
                 let personID = uuid()
                 while (personID in personIDs) {
                     personID = uuid()
                 }
 
-                // add new user with eMail, password, firstname, lastname, personID and groupID to api/database
-                fetch("/api/login?" + "eMail=" + registerData.eMail + "&password=" + registerData.password + "&firstname=" + registerData.firstname + "&lastname=" + registerData.lastname + "&personID=" + personID + "&groupID=" + registerData.groupID, {
+                // add new user with eMail, password, firstname, lastname, personID and groupID to api/login
+                // lowercase input email, so that email is not case sensitive
+                fetch("/api/login?" + "eMail=" + (registerData.eMail).toLowerCase() + "&password=" + registerData.password + "&firstname=" + registerData.firstname + "&lastname=" + registerData.lastname + "&personID=" + personID + "&groupID=" + registerData.groupID, {
 
                     headers: {
                         'Accept': 'application/json',
@@ -68,19 +74,22 @@ const Register = () => {
                     .then(function (res) { window.location.reload() })
                     .catch(function (res) { console.log(res) })
 
-                // store the needed user data in sessionStorage
+                // store the needed user data for the further process in sessionStorage
                 sessionStorage.setItem("myFirstname", registerData.firstname);
                 sessionStorage.setItem("myLastname", registerData.lastname);
                 sessionStorage.setItem("myGroupID", registerData.groupID);
                 sessionStorage.setItem("myPersonID", personID);
 
+                // after registration, user is logged in so change loggedIn variable to true
+                // and navigate then to the "overview" page
                 sessionStorage.setItem("loggedIn", JSON.stringify(true))
                 navigate("/overview")
             }
         }
 
         // return form with input fields for registrating a new user
-        // disable the "register" button if inputValidation is false, for example empty input fields or not an input with eMail format in email input field
+        // disable the "register" button if inputValidation is false, 
+        // for example empty input fields or not an input with eMail format in email input field
         return (
 
             <form novalidate onSubmit={handleSubmit(onSubmit)}>
@@ -91,23 +100,23 @@ const Register = () => {
 
                 <div className="form-group">
                     <label>Vorname</label>
-                    <input {...register("firstname", { required: true })} className="form-control" id="firstname" />
+                    <input {...register("firstname", { required: true })} className="form-control" id="firstname" placeholder='Max' />
                 </div>
 
                 <div className="form-group">
                     <label >Nachname</label>
-                    <input {...register("lastname", { required: true })} className="form-control" id="lastname" />
+                    <input {...register("lastname", { required: true })} className="form-control" id="lastname" placeholder='Mustermann' />
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="email">E-Mail-Adresse</label>
-                    <input {...register("eMail", { required: true })} type="email" className="form-control" id="email" aria-describedby="emailHelp" />
+                    <input {...register("eMail", { required: true })} type="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder='max.mustermann@mail.com' />
                     <small id="emailHelp" className="form-text text-muted">Wir werden deine E-Mail-Adresse nicht weitergeben.</small>
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="password">Passwort</label>
-                    <input {...register("password", { required: true })} type="password" className="form-control" id="password" />
+                    <input {...register("password", { required: true })} type="password" className="form-control" id="password" placeholder='●●●●●●●●●●' />
                 </div>
 
                 <div>

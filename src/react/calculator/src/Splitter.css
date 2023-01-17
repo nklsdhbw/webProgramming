@@ -2,20 +2,17 @@
   width: 300px;
 }
 
-
-
 .input-group {
   width: 300px;
-
 }
-
-
 
 .checkbox {
   /* style the dropdown */
   width: 200px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  align-items: center;
+  justify-content: center;
 }
 
 .checkbox div {
@@ -24,6 +21,7 @@
   align-items: center;
   padding: 5px 10px;
   cursor: pointer;
+
 }
 
 .checkbox div:hover {
@@ -32,8 +30,10 @@
 }
 
 .checkbox input[type="checkbox"] {
-  /* style the checkboxes */
+  /*style the checkboxes*/
   margin-right: 10px;
+  margin-top: -5px;
+
 }
 
 #debtors {

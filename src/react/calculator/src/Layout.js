@@ -1,3 +1,4 @@
+// import libraries
 import Navbar from 'react-bootstrap/Navbar'
 import { Outlet, NavLink, useLocation } from 'react-router-dom'
 const Layout = () => {
@@ -13,8 +14,8 @@ const Layout = () => {
     // get the current route from the location object
     const currentRoute = location.pathname;
 
-    // only display navbar when user is logged in, so he's redirected from "/"
-    // which means login or from "/register"
+    // only display navbar when user is logged in and current route is NOT "/"
+    // which means login or "/register"
     return (
         <>
             <div>
@@ -23,7 +24,7 @@ const Layout = () => {
 
             <div>
 
-                {(currentRoute !== '/' && currentRoute !== "/register") && (
+                {((currentRoute !== '/' && currentRoute !== "/register") && (JSON.parse(sessionStorage.getItem("loggedIn")))) && (
                     <Navbar bg="white" variant="light" className="justify-content-center" hidden={false}>
                         <NavLink to="/shoppinglist" style={style} textDecoration="none">
                             Einkaufsliste
