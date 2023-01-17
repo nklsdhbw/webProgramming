@@ -81,6 +81,11 @@ const Splitter = () => {
 
         <form onSubmit={handleSubmit(onSubmit)}>
 
+          {(loginDataGrouped.length === 0) && (
+            <div class="row" id="debtors" >
+              <p><strong>Aktuell kannst du den Splitter nicht benutzen, da du alleine in der Gruppe bist. Du kannst aber schon einmal die Funktionsweise testen</strong></p>
+            </div>)}
+
           <div class="row">
             <div class="col">
               <div class="input-group mb-3">
@@ -90,7 +95,7 @@ const Splitter = () => {
             </div>
           </div>
 
-          <div class="row" id="debtors" >
+          {(loginDataGrouped.length != 0) && (<div class="row" id="debtors" >
             <div class="col checkbox mb-3">
               {loginDataGrouped.map(user => (
                 <div>
@@ -99,7 +104,20 @@ const Splitter = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </div>)}
+          {(loginDataGrouped.length === 0) && (<div class="row" id="debtors" >
+            <div class="col checkbox mb-3">
+              <div>
+                <input type="checkbox" value="Max Mustermann" />
+                <label for="Max Mustermann">Max Mustermann</label>
+              </div>
+            </div>
+          </div>)}
+
+
+
+
+
 
           <div class="row">
             <div class="col">
@@ -110,7 +128,7 @@ const Splitter = () => {
             </div>
           </div>
 
-          <div class="row">
+          {(loginDataGrouped.length != 0) && (<div class="row">
             <div class="col">
               <div>
                 <button id="create" class="w-100 btn btn-lg btn-primary" type="submit" disabled={!formState.isValid}>
@@ -118,7 +136,19 @@ const Splitter = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </div>)}
+          {(loginDataGrouped.length === 0) && (<div class="row">
+            <div class="col">
+              <div>
+                <button id="create" class="w-100 btn btn-lg btn-primary" type="submit" disabled="true">
+                  splitten
+                </button>
+              </div>
+            </div>
+          </div>)}
+
+
+
 
         </form>
 
