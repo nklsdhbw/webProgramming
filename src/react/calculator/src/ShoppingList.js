@@ -15,7 +15,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ShoppingList = () => {
 
-  if (!sessionStorage.getItem("loggedIn")) {
+  if (!JSON.parse(sessionStorage.getItem("loggedIn"))) {
     window.location.href = "/"
 
   }

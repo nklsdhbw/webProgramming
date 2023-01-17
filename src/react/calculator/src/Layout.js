@@ -1,7 +1,7 @@
 import Navbar from 'react-bootstrap/Navbar'
-import { Outlet, NavLink } from 'react-router-dom'
+import { Outlet, NavLink, useLocation } from 'react-router-dom'
 const Layout = () => {
-    let loginStatus = sessionStorage.getItem("loggedIn")
+    const location = useLocation()
     const style = ({ isActive }) => ({
         fontWeight: isActive ? 'bold' : 'normal',
         color: 'black',
@@ -10,7 +10,11 @@ const Layout = () => {
 
     });
 
-    // only display navbar when user is logged in, case when "loggedIn" = true
+    // get the current route from the location object
+    const currentRoute = location.pathname;
+
+    // only display navbar when user is logged in, so he's redirected from "/"
+    // which means login or from "/register"
     return (
         <>
             <div>
@@ -19,7 +23,7 @@ const Layout = () => {
 
             <div>
 
-                {(loginStatus) && (
+                {(currentRoute !== '/' && currentRoute !== "/register") && (
                     <Navbar bg="white" variant="light" className="justify-content-center" hidden={false}>
                         <NavLink to="/shoppinglist" style={style} textDecoration="none">
                             Einkaufsliste
@@ -42,7 +46,5 @@ const Layout = () => {
 };
 
 export default Layout
-//currentRoute !== '/' && currentRoute !== "/register"//const location = useLocation();
-    // get the current route from the location object
-    //const currentRoute = location.pathname;
-    //console.log(currentRoute)
+
+

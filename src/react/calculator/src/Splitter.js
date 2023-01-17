@@ -10,14 +10,14 @@ import './Splitter.css';
 
 
 const Splitter = () => {
-  if (!sessionStorage.getItem("loggedIn")) {
+  if (!JSON.parse(sessionStorage.getItem("loggedIn"))) {
     window.location.href = "/"
 
   }
 
 
   const { isLoading, data } = useFetch("/api/login");
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState, setError } = useForm();
 
   let loginData;
   // display loading text when data is not fully loaded
@@ -86,7 +86,7 @@ const Splitter = () => {
           <div class="col">
             <div class="input-group mb-3">
               <span class="input-group-text">Betrag €</span>
-              <input {...register("amount", { required: true })} type="text" class="form-control" aria-label="Amount (to the nearest dollar)"></input>
+              <input {...register("amount", { required: true })} type="number" min="0" class="form-control" aria-label="Amount (to the nearest dollar)"></input>
             </div>
           </div>
         </div>

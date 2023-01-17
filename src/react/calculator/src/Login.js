@@ -21,10 +21,10 @@ const Login = () => {
 
 
 
-
-
         // declare login status
-        sessionStorage.setItem("loggedIn", false)
+        sessionStorage.setItem("loggedIn", JSON.stringify(false))
+
+
 
         // iterate over the data from /api/login and check if the inputs are in the array(=database)
         data.forEach(element => {
@@ -39,15 +39,16 @@ const Login = () => {
                 sessionStorage.setItem("myPersonID", element.personID);
 
                 // after successfull login navigate to overview page
+                sessionStorage.setItem("loggedIn", JSON.stringify(true))
                 navigate("overview");
-                sessionStorage.setItem("loggedIn", true)
+
             }
 
         });
 
         // alert user if password or email is false
-        if (!sessionStorage.getItem("loggedIn")) {
-            alert("invalid password or email!")
+        if (!JSON.parse(sessionStorage.getItem("loggedIn"))) {
+            window.alert("invalid password or email!")
         }
         // }
     };
@@ -58,7 +59,7 @@ const Login = () => {
         // set all input fields to required to prevent user to try login in without credentials
 
         //check if user is already logged in, if so, automatically redirect to overview
-        if (sessionStorage.getItem("loggedIn")) {
+        if ((JSON.parse(sessionStorage.getItem("loggedIn")))) {
             window.location.href = "/overview"
 
         }
