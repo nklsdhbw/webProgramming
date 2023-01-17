@@ -14,8 +14,8 @@ const Layout = () => {
     // get the current route from the location object
     const currentRoute = location.pathname;
 
-    // only display navbar when user is logged in, so he's redirected from "/"
-    // which means login or from "/register"
+    // only display navbar when user is logged in and current route is NOT "/"
+    // which means login or "/register"
     return (
         <>
             <div>
