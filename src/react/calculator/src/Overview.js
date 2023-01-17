@@ -32,7 +32,7 @@ const Overview = () => {
     }
   };
 
-  if (isLoading === false) {
+  if (!isLoading) {
 
     // filter /api/bills data to all datasets, that the user is creditor or debtor of
     let overviewData = data.filter(overviewData => (overviewData.debtorPersonID == sessionStorage.getItem('myPersonID') || (overviewData.creditorPersonID == sessionStorage.getItem('myPersonID'))))
