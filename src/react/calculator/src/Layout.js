@@ -24,7 +24,7 @@ const Layout = () => {
 
             <div>
 
-                {(currentRoute !== '/' && currentRoute !== "/register") && (
+                {((currentRoute !== '/' && currentRoute !== "/register") && (JSON.parse(sessionStorage.getItem("loggedIn")))) && (
                     <Navbar bg="white" variant="light" className="justify-content-center" hidden={false}>
                         <NavLink to="/shoppinglist" style={style} textDecoration="none">
                             Einkaufsliste
