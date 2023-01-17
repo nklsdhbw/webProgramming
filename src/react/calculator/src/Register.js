@@ -41,7 +41,8 @@ const Register = () => {
         const onSubmit = registerData => {
 
             // check if user already has an account with the email given in the input field
-            if (eMails.includes(registerData.eMail)) {
+            // and lowercase email
+            if (eMails.includes((registerData.eMail).toLowerCase())) {
                 alert("User already exists! Login or register with anoter eMail")
             }
             else {
