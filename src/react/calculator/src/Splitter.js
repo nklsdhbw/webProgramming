@@ -32,10 +32,13 @@ const Splitter = () => {
     let loginData = data
 
     // filter loginData to specific groupID from user
-    let loginDataGrouped = data.filter(loginData => loginData.groupID == sessionStorage.getItem('myGroupID'))
+    let loginDataGrouped = loginData.filter(loginData => loginData.groupID == sessionStorage.getItem('myGroupID'))
 
     //filter out yourself with your personID. this array is then needed for the tickboxes where you decide with whom you split the bill
     loginDataGrouped = loginDataGrouped.filter(loginDataGrouped => loginDataGrouped.personID != sessionStorage.getItem('myPersonID'))
+
+    // billIDs: needs for checking if a billID already exists while adding new bill
+    let billIDs = loginData.map(loginData => loginData.billID)
 
     const onSubmit = splitterData => {
       // create date stamp
@@ -59,7 +62,13 @@ const Splitter = () => {
       debtorFullName.forEach(element => {
         let debtorPersonID = loginData.find(x => (x.firstname + " " + x.lastname) === element).personID
 
-        fetch("/api/bills?creditorFirstname=" + sessionStorage.getItem('myFirstname') + "&creditorLastname=" + sessionStorage.getItem('myLastname') + "&creditorPersonID=" + sessionStorage.getItem('myPersonID') + "&amount=" + (splitterData.amount / amountPeople).toFixed(2) + "&debtorFullName=" + element + "&debtorPersonID=" + debtorPersonID + "&comment=" + splitterData.comment + "&billID=" + uuid() + "&date=" + date + "&groupID=" + sessionStorage.getItem('myGroupID'), {
+        // create uniqe billID
+        let billID = uuid()
+        while (billID in billIDs) {
+          billID = uuid()
+        }
+
+        fetch("/api/bills?creditorFirstname=" + sessionStorage.getItem('myFirstname') + "&creditorLastname=" + sessionStorage.getItem('myLastname') + "&creditorPersonID=" + sessionStorage.getItem('myPersonID') + "&amount=" + (splitterData.amount / amountPeople).toFixed(2) + "&debtorFullName=" + element + "&debtorPersonID=" + debtorPersonID + "&comment=" + splitterData.comment + "&billID=" + billID + "&date=" + date + "&groupID=" + sessionStorage.getItem('myGroupID'), {
 
           headers: {
             'Accept': 'application/json',

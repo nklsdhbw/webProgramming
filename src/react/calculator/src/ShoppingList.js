@@ -27,21 +27,62 @@ const ShoppingList = () => {
   // create form
   const { register, handleSubmit, formState } = useForm();
 
-  // click handler of delete button for deleting shopping list entries
-  const handleClick = (shoppingListID) => {
 
-    // only delete, if user confirms
-    if (window.confirm('Möchtest du wirklich den Gegenstand von der Einkaufliste löschen?')) {
-      deleteEntry(shoppingListID)
-    }
-  };
 
 
   // continue if data from api/shoppingList is completely loaded
   if (!isLoading) {
+    // click handler of delete button for deleting shopping list entries
+    const handleClick = (shoppingListID) => {
+
+      // only delete, if user confirms
+      if (window.confirm('Möchtest du wirklich den Gegenstand von der Einkaufliste löschen?')) {
+        deleteEntry(shoppingListID)
+      }
+    };
+
+
+    // delete entry from shoppingListID
+    function deleteEntry(shoppingListID) {
+      fetch("/api/shoppingList/" + shoppingListID, {
+
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "DELETE"
+      })
+        .then(function (res) { window.location.reload() })
+        .catch(function (res) { console.log(res) })
+    }
+
+    // add entry to the shoppinglist
+    function addEntry(shoppingListItem, itemAmount) {
+      // make sure the shoppingListID does not exist
+      let shoppingListID = uuid()
+      while (shoppingListID in shoppingListIDs) {
+        shoppingListID = uuid()
+      }
+      fetch("/api/shoppingList?" + "item=" + shoppingListItem + "&amount=" + itemAmount + "&shoppingListID=" + shoppingListID + "&groupID=" + sessionStorage.getItem('myGroupID'), {
+
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "PUT"
+      })
+        .then(function (res) { window.location.reload() })
+        .catch(function (res) { console.log(res) })
+    }
+
+
+
 
     // filter the data from /api/shoppingList on groupID
     let shoppingListData = data.filter(shoppingListData => shoppingListData.groupID == sessionStorage.getItem('myGroupID'))
+
+    // shoppingListIDs: needs for checking if a shoppingListID already exists while adding new entry to shoppingList
+    let shoppingListIDs = data.map(shoppingListData => shoppingListData.shoppingListID)
 
     // handles the submit of the "Eintrag hinzufügen" button, in this case it adds the new entry
     const onSubmit = addItemData => {
@@ -101,32 +142,6 @@ const ShoppingList = () => {
 }
 
 
-// delete entry from shoppingListID
-function deleteEntry(shoppingListID) {
-  fetch("/api/shoppingList/" + shoppingListID, {
 
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    method: "DELETE"
-  })
-    .then(function (res) { window.location.reload() })
-    .catch(function (res) { console.log(res) })
-}
-
-// add entry to the shoppinglist
-function addEntry(shoppingListItem, itemAmount) {
-  fetch("/api/shoppingList?" + "item=" + shoppingListItem + "&amount=" + itemAmount + "&shoppingListID=" + uuid() + "&groupID=" + sessionStorage.getItem('myGroupID'), {
-
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    method: "PUT"
-  })
-    .then(function (res) { window.location.reload() })
-    .catch(function (res) { console.log(res) })
-}
 
 export default ShoppingList;
